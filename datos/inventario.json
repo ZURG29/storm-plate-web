@@ -1,3 +1,11 @@
 {
-  "joyas": []
+  "joyas": [
+    {
+      "id": "001",
+      "titulo": "ANILLO BLACK STORM",
+      "precio": "$1200",
+      "descripcion": "Anillo de plata bien chingon jajajajaja",
+      "imagen": "galeria/anillo.jpg"
+    }
+  ]
 }
