@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Detalles del Producto | STORM PLATE</title>
+    <title>Detalles | STORM PLATE</title>
     <style>
-        /* --- ESTILOS STORM --- */
+        /* --- ESTILOS STORM (Misma base visual) --- */
         :root {
             --fondo-oscuro: #0f1014;
             --plata-brillo: linear-gradient(135deg, #e0e0e0 0%, #ffffff 50%, #a0a0a0 100%);
@@ -51,22 +51,14 @@
         }
         .btn-volver:hover { background: #fff; color: #000; }
 
-        /* --- CONTENEDOR DEL PRODUCTO --- */
         .producto-container {
             max-width: 1000px;
             margin: 50px auto;
             padding: 20px;
             display: grid;
-            grid-template-columns: 1fr 1fr; /* Mitad foto, mitad texto */
+            grid-template-columns: 1fr 1fr;
             gap: 50px;
             align-items: start;
-        }
-
-        /* Galería de Fotos (Izquierda) */
-        .galeria-visual {
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
         }
 
         .foto-principal {
@@ -78,24 +70,6 @@
             border-radius: 4px;
         }
 
-        .miniaturas {
-            display: flex;
-            gap: 10px;
-        }
-
-        .mini {
-            width: 80px;
-            height: 80px;
-            background: #222;
-            object-fit: cover;
-            cursor: pointer;
-            border: 1px solid #444;
-            opacity: 0.6;
-            transition: 0.3s;
-        }
-        .mini:hover { opacity: 1; border-color: #fff; }
-
-        /* Información (Derecha) */
         .info-detalle h1 {
             font-family: var(--fuente-elegante);
             font-size: 2.5rem;
@@ -116,6 +90,7 @@
             margin-bottom: 30px;
             border-top: 1px solid #333;
             padding-top: 20px;
+            white-space: pre-wrap; /* Respeta los saltos de línea */
         }
 
         .btn-comprar-grande {
@@ -138,7 +113,6 @@
         
         .btn-comprar-grande:hover { transform: scale(1.02); }
 
-        /* Móvil */
         @media (max-width: 768px) {
             .producto-container { grid-template-columns: 1fr; }
             .foto-principal { height: 350px; }
@@ -153,86 +127,62 @@
     </header>
 
     <div class="producto-container">
-        
         <div class="galeria-visual">
-            <img id="imgPrincipal" src="" alt="Foto Principal" class="foto-principal">
-            
-            <div class="miniaturas">
-                <img id="mini1" src="" class="mini" onclick="cambiarFoto(this.src)">
-                <img id="mini2" src="" class="mini" onclick="cambiarFoto(this.src)">
-                <img src="https://via.placeholder.com/150/000000/FFFFFF?text=Storm" class="mini">
-            </div>
+            <img id="imgPrincipal" src="" alt="Cargando..." class="foto-principal">
         </div>
 
         <div class="info-detalle">
-            <h1 id="tituloProducto">Cargando...</h1>
-            <div class="precio" id="precioProducto">$0.00 MXN</div>
+            <h1 id="tituloProducto">Cargando joya...</h1>
+            <div class="precio" id="precioProducto">...</div>
             
-            <p class="descripcion" id="descProducto">
-                Detalles de la pieza no disponibles.
-            </p>
+            <p class="descripcion" id="descProducto">...</p>
 
-            <a href="https://wa.me/5211234567890" class="btn-comprar-grande" target="_blank">
+            <a id="btnWhatsapp" href="#" class="btn-comprar-grande" target="_blank">
                 Comprar / Preguntar
             </a>
             <p style="font-size: 0.8rem; color: #666; text-align: center; margin-top: 10px;">
-                Envío seguro a todo el país.
+                Envío seguro y garantía Storm Plate.
             </p>
         </div>
     </div>
 
     <script>
-        // 1. OBTENER EL ID DE LA URL (ej: detalles.html?id=5)
+        // 1. OBTENER EL ID DE LA URL
         const params = new URLSearchParams(window.location.search);
-        const id = params.get('id');
+        const idBuscado = params.get('id');
 
-        // 2. BASE DE DATOS SIMPLE (Aquí puedes editar precios y textos)
-        // Si el ID no está aquí, usará los datos "default"
-        const baseDeDatos = {
-            "1": {
-                titulo: "Anillo Calavera Storm",
-                precio: "$1,250 MXN",
-                descripcion: "Plata Ley .925 con acabado oxidado artesanal. Una pieza robusta para quienes lideran la manada."
-            },
-            "2": {
-                titulo: "Collar Luna Oscura",
-                precio: "$980 MXN",
-                descripcion: "Cadena de plata fina con dije de luna. Ideal para un estilo nocturno y elegante."
-            },
-            "3": {
-                titulo: "Sello Real",
-                precio: "$1,800 MXN",
-                descripcion: "Anillo tipo sello macizo. Peso aproximado 15g. Grabado a mano."
+        // 2. CARGAR DATOS DESDE EL ADMIN (inventario.json)
+        async function cargarDetalles() {
+            try {
+                const respuesta = await fetch('datos/inventario.json');
+                const data = await respuesta.json();
+                const productos = data.joyas;
+
+                // Buscar el producto que coincida con el ID
+                const producto = productos.find(item => item.id === idBuscado);
+
+                if (producto) {
+                    // Rellenar la página con los datos reales
+                    document.getElementById('tituloProducto').innerText = producto.titulo;
+                    document.getElementById('precioProducto').innerText = producto.precio;
+                    document.getElementById('descProducto').innerText = producto.descripcion;
+                    document.getElementById('imgPrincipal').src = producto.imagen;
+                    
+                    // Configurar botón de WhatsApp con mensaje personalizado
+                    const mensaje = `Hola, me interesa el ${producto.titulo} de precio ${producto.precio}.`;
+                    const numero = "5215500000000"; // ¡PON TU NÚMERO AQUÍ!
+                    document.getElementById('btnWhatsapp').href = `https://wa.me/${numero}?text=${encodeURIComponent(mensaje)}`;
+                } else {
+                    document.getElementById('tituloProducto').innerText = "Producto no encontrado";
+                    document.getElementById('descProducto').innerText = "Este artículo no parece estar disponible en el inventario.";
+                }
+
+            } catch (error) {
+                console.error('Error:', error);
             }
-            // Puedes agregar más: "4": { ... },
-        };
-
-        // 3. DATOS POR DEFECTO (Si no escribiste nada arriba para un ID)
-        const datosDefault = {
-            titulo: `Modelo Storm #${id}`,
-            precio: "Consultar Precio",
-            descripcion: "Pieza exclusiva de nuestra colección de Plata .925. Acabados de alta durabilidad y diseño único. Contáctanos para disponibilidad y tallas."
-        };
-
-        // 4. LOGICA PARA MOSTRAR LA INFO
-        const info = baseDeDatos[id] || datosDefault;
-
-        // Rellenar textos
-        document.getElementById('tituloProducto').innerText = info.titulo;
-        document.getElementById('precioProducto').innerText = info.precio;
-        document.getElementById('descProducto').innerText = info.descripcion;
-
-        // Cargar imagen
-        const rutaImagen = `galeria/imagen${id}.jpg`;
-        document.getElementById('imgPrincipal').src = rutaImagen;
-        document.getElementById('mini1').src = rutaImagen; // La misma foto
-        document.getElementById('mini2').src = rutaImagen; // La misma foto (simulación)
-
-        // Función para cambiar foto al dar click en miniatura
-        function cambiarFoto(src) {
-            document.getElementById('imgPrincipal').src = src;
         }
 
+        cargarDetalles();
     </script>
 </body>
 </html>
