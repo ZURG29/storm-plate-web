@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Catálogo Completo | STORM PLATE</title>
+    <style>
+        /* --- ESTILOS VISUALES STORM --- */
+        :root {
+            --fondo-oscuro: #0f1014;
+            --plata-brillo: linear-gradient(135deg, #e0e0e0 0%, #ffffff 50%, #a0a0a0 100%);
+            --texto-claro: #f5f5f5;
+            --fuente-elegante: 'Georgia', serif;
+            --fuente-moderna: 'Arial', sans-serif;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: var(--fuente-moderna);
+            background-color: var(--fondo-oscuro);
+            color: var(--texto-claro);
+        }
+
+        /* Cabecera */
+        header {
+            padding: 20px 40px;
+            background-color: rgba(15, 16, 20, 0.98);
+            border-bottom: 1px solid #333;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .logo {
+            font-family: var(--fuente-elegante);
+            font-size: 1.5rem;
+            font-weight: bold;
+            text-transform: uppercase;
+            background: var(--plata-brillo);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-decoration: none;
+        }
+
+        .nav-links a {
+            color: #aaa;
+            text-decoration: none;
+            margin-left: 20px;
+            font-size: 0.9rem;
+            transition: color 0.3s;
+        }
+        .nav-links a:hover { color: #fff; }
+
+        /* Contenedor Principal */
+        .main-container {
+            padding: 40px 20px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .titulo-seccion {
+            text-align: center;
+            font-family: var(--fuente-elegante);
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            color: #e0e0e0;
+        }
+
+        .subtitulo {
+            text-align: center;
+            color: #777;
+            margin-bottom: 50px;
+        }
+
+        /* GRID (Rejilla) de Productos */
+        .grid-galeria {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); /* Se adapta a pantallas */
+            gap: 25px;
+        }
+
+        /* Tarjeta de Producto Individual */
+        .card-producto {
+            background: #16181d;
+            border: 1px solid #333;
+            border-radius: 4px;
+            overflow: hidden;
+            transition: transform 0.3s, border-color 0.3s;
+            position: relative;
+        }
+
+        .card-producto:hover {
+            transform: translateY(-5px);
+            border-color: #aaa;
+        }
+
+        .img-container {
+            width: 100%;
+            height: 220px;
+            background-color: #222;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .img-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s;
+        }
+
+        .card-producto:hover img {
+            transform: scale(1.1);
+        }
+
+        .info-producto {
+            padding: 15px;
+            text-align: center;
+        }
+
+        .nombre-producto {
+            font-size: 1rem;
+            margin: 0 0 5px 0;
+            color: #fff;
+        }
+
+        .precio-producto {
+            color: #aaa;
+            font-size: 0.9rem;
+        }
+
+        /* Botón flotante WhatsApp (opcional, decorativo por ahora) */
+        .btn-comprar {
+            display: block;
+            margin-top: 10px;
+            background: #333;
+            color: #fff;
+            text-decoration: none;
+            padding: 5px;
+            font-size: 0.8rem;
+            border-radius: 2px;
+        }
+        .btn-comprar:hover { background: #555; }
+
+        footer {
+            text-align: center;
+            padding: 50px;
+            color: #555;
+            font-size: 0.8rem;
+            border-top: 1px solid #222;
+            margin-top: 50px;
+        }
+
+    </style>
+</head>
+<body>
+
+    <header>
+        <a href="index.html" class="logo">Storm Plate</a>
+        <nav class="nav-links">
+            <a href="index.html">Inicio</a>
+            <a href="#">Contacto</a>
+        </nav>
+    </header>
+
+    <div class="main-container">
+        <h1 class="titulo-seccion">Catálogo Exclusivo</h1>
+        <p class="subtitulo">Explora nuestras 50 piezas de selección.</p>
+
+        <div class="grid-galeria" id="contenedorFotos">
+            </div>
+    </div>
+
+    <footer>
+        <p>STORM PLATE &copy; 2024</p>
+    </footer>
+
+  <script>
+    const contenedor = document.getElementById('contenedorFotos');
+
+    // Función para cargar los productos desde el archivo que crea el Administrador
+    async function cargarProductos() {
+        try {
+            const respuesta = await fetch('datos/inventario.json');
+            const data = await respuesta.json();
+            const productos = data.joyas;
+
+            if (!productos || productos.length === 0) {
+                contenedor.innerHTML = '<p style="color:white; text-align:center;">No hay productos cargados aún desde el Administrador.</p>';
+                return;
+            }
+
+            // Limpiamos el contenedor
+            contenedor.innerHTML = '';
+
+            // Creamos las tarjetas con los datos REALES
+            productos.forEach(joya => {
+                const tarjetaHTML = `
+                <a href="detalles.html?id=${joya.id}" class="link-producto" style="text-decoration: none;">
+                    <div class="card-producto">
+                        <div class="img-container">
+                            <img src="${joya.imagen}" alt="${joya.titulo}">
+                        </div>
+                        <div class="info-producto">
+                            <h3 class="nombre-producto">${joya.titulo}</h3>
+                            <p class="precio-producto">${joya.precio}</p>
+                        </div>
+                    </div>
+                </a>
+                `;
+                contenedor.innerHTML += tarjetaHTML;
+            });
+
+        } catch (error) {
+            console.error('Error cargando inventario:', error);
+            contenedor.innerHTML = '<p style="color:#aaa; text-align:center;">Cargando sistema...</p>';
+        }
+    }
+
+    // Ejecutar carga
+    cargarProductos();
+</script>
+</body>
+</html>

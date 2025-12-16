@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>STORM PLATE | Inicio</title>
+    <style>
+        /* --- ESTILOS DE MARCA STORM --- */
+        :root {
+            --fondo-oscuro: #0f1014;
+            --negro-profundo: #000000;
+            --plata-brillo: linear-gradient(135deg, #cfcfcf 0%, #ffffff 40%, #999999 100%);
+            --texto-claro: #f5f5f5;
+            --fuente-elegante: 'Georgia', serif;
+            --fuente-moderna: 'Arial', sans-serif;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: var(--fuente-moderna);
+            background-color: var(--fondo-oscuro);
+            color: var(--texto-claro);
+            overflow-x: hidden;
+        }
+
+        /* Animación de entrada suave */
+        @keyframes aparecer {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* --- NAVEGACIÓN --- */
+        header {
+            padding: 25px 50px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: absolute; /* Transparente sobre el fondo */
+            width: 90%;
+            z-index: 10;
+        }
+
+        .logo {
+            font-family: var(--fuente-elegante);
+            font-size: 2rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            /* Efecto Plata */
+            background: var(--plata-brillo);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-decoration: none;
+        }
+
+        nav a {
+            color: #fff;
+            text-decoration: none;
+            font-size: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-left: 30px;
+            border-bottom: 1px solid transparent;
+            transition: 0.3s;
+        }
+
+        nav a:hover {
+            color: #ccc;
+            border-bottom: 1px solid #fff;
+        }
+
+        /* --- SECCIÓN HERO (PORTADA) --- */
+        .hero {
+            height: 100vh; /* Ocupa toda la pantalla */
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            /* Fondo con degradado oscuro elegante */
+            background: radial-gradient(circle at center, #2a2a2a 0%, #000000 100%);
+            padding: 20px;
+        }
+
+        .hero-content {
+            animation: aparecer 1.5s ease-out;
+        }
+
+        .slogan-principal {
+            font-family: var(--fuente-elegante);
+            font-size: 4rem;
+            margin: 0;
+            line-height: 1.2;
+            color: #e0e0e0;
+            text-shadow: 0 0 20px rgba(255,255,255,0.1);
+        }
+
+        .slogan-secundario {
+            font-size: 1.2rem;
+            color: #888;
+            margin-top: 20px;
+            margin-bottom: 50px;
+            letter-spacing: 1px;
+            max-width: 600px;
+        }
+
+        /* Botón de llamada a la acción */
+        .btn-coleccion {
+            display: inline-block;
+            padding: 18px 50px;
+            background: transparent;
+            border: 1px solid #fff;
+            color: #fff;
+            font-size: 1rem;
+            text-transform: uppercase;
+            text-decoration: none;
+            letter-spacing: 3px;
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-coleccion:hover {
+            background: var(--plata-brillo);
+            color: #000;
+            border-color: #fff;
+            font-weight: bold;
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
+        }
+
+        /* --- SECCIÓN DE MENSAJES / SOBRE LA MARCA --- */
+        .mensajes {
+            padding: 80px 20px;
+            background-color: #0a0a0a;
+            text-align: center;
+        }
+
+        .mensaje-box {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .mensaje-box h2 {
+            font-family: var(--fuente-elegante);
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            background: var(--plata-brillo);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .mensaje-box p {
+            color: #777;
+            line-height: 1.8;
+            font-size: 1.1rem;
+        }
+
+        footer {
+            text-align: center;
+            padding: 30px;
+            font-size: 0.8rem;
+            color: #444;
+            background-color: #000;
+        }
+
+        /* Ajuste para móviles */
+        @media (max-width: 768px) {
+            .slogan-principal { font-size: 2.5rem; }
+            header { padding: 20px; }
+            .logo { font-size: 1.5rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <a href="index.html" class="logo">Storm Plate</a>
+        <nav>
+            <a href="catalogo.html">Colección</a>
+        </nav>
+    </header>
+
+    <section class="hero">
+        <div class="hero-content">
+            <h1 class="slogan-principal">El Poder<br>de la Plata</h1>
+            <p class="slogan-secundario">Diseños exclusivos forjados para quienes desafían la calma.</p>
+            
+            <a href="catalogo.html" class="btn-coleccion">Ver Catálogo</a>
+        </div>
+    </section>
+
+    <section class="mensajes">
+        <div class="mensaje-box">
+            <h2>Artesanía & Oscuridad</h2>
+            <p>
+                En STORM PLATE no vendemos simples accesorios. Creamos piezas que cuentan historias. 
+                Cada anillo y cada cadena está trabajada en Plata Ley .925 con acabados que 
+                resisten el paso del tiempo y las tendencias pasajeras.
+            </p>
+        </div>
+    </section>
+
+    <footer>
+        <p>STORM PLATE &copy; 2024 - Todos los derechos reservados.</p>
+    </footer>
+
+</body>
+</html>

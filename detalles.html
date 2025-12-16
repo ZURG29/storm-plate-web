@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detalles | STORM PLATE</title>
+    <style>
+        /* --- ESTILOS STORM (Misma base visual) --- */
+        :root {
+            --fondo-oscuro: #0f1014;
+            --plata-brillo: linear-gradient(135deg, #e0e0e0 0%, #ffffff 50%, #a0a0a0 100%);
+            --texto-claro: #f5f5f5;
+            --fuente-elegante: 'Georgia', serif;
+            --fuente-moderna: 'Arial', sans-serif;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: var(--fuente-moderna);
+            background-color: var(--fondo-oscuro);
+            color: var(--texto-claro);
+        }
+
+        header {
+            padding: 20px 40px;
+            background-color: #000;
+            border-bottom: 1px solid #333;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-family: var(--fuente-elegante);
+            font-size: 1.5rem;
+            color: #fff;
+            text-decoration: none;
+            background: var(--plata-brillo);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .btn-volver {
+            color: #aaa;
+            text-decoration: none;
+            border: 1px solid #555;
+            padding: 8px 15px;
+            border-radius: 4px;
+            transition: 0.3s;
+        }
+        .btn-volver:hover { background: #fff; color: #000; }
+
+        .producto-container {
+            max-width: 1000px;
+            margin: 50px auto;
+            padding: 20px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px;
+            align-items: start;
+        }
+
+        .foto-principal {
+            width: 100%;
+            height: 500px;
+            background: #1a1a1a;
+            border: 1px solid #333;
+            object-fit: cover;
+            border-radius: 4px;
+        }
+
+        .info-detalle h1 {
+            font-family: var(--fuente-elegante);
+            font-size: 2.5rem;
+            margin-top: 0;
+            margin-bottom: 10px;
+        }
+
+        .precio {
+            font-size: 1.8rem;
+            color: #e0e0e0;
+            margin-bottom: 20px;
+            font-weight: bold;
+        }
+
+        .descripcion {
+            color: #aaa;
+            line-height: 1.6;
+            margin-bottom: 30px;
+            border-top: 1px solid #333;
+            padding-top: 20px;
+            white-space: pre-wrap; /* Respeta los saltos de línea */
+        }
+
+        .btn-comprar-grande {
+            display: block;
+            width: 100%;
+            padding: 15px;
+            background: var(--plata-brillo);
+            color: #000;
+            text-align: center;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 1.1rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            border-radius: 4px;
+            cursor: pointer;
+            border: none;
+            transition: transform 0.2s;
+        }
+        
+        .btn-comprar-grande:hover { transform: scale(1.02); }
+
+        @media (max-width: 768px) {
+            .producto-container { grid-template-columns: 1fr; }
+            .foto-principal { height: 350px; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <a href="index.html" class="logo">Storm Plate</a>
+        <a href="catalogo.html" class="btn-volver">← Volver al Catálogo</a>
+    </header>
+
+    <div class="producto-container">
+        <div class="galeria-visual">
+            <img id="imgPrincipal" src="" alt="Cargando..." class="foto-principal">
+        </div>
+
+        <div class="info-detalle">
+            <h1 id="tituloProducto">Cargando joya...</h1>
+            <div class="precio" id="precioProducto">...</div>
+            
+            <p class="descripcion" id="descProducto">...</p>
+
+            <a id="btnWhatsapp" href="#" class="btn-comprar-grande" target="_blank">
+                Comprar / Preguntar
+            </a>
+            <p style="font-size: 0.8rem; color: #666; text-align: center; margin-top: 10px;">
+                Envío seguro y garantía Storm Plate.
+            </p>
+        </div>
+    </div>
+
+    <script>
+        // 1. OBTENER EL ID DE LA URL
+        const params = new URLSearchParams(window.location.search);
+        const idBuscado = params.get('id');
+
+        // 2. CARGAR DATOS DESDE EL ADMIN (inventario.json)
+        async function cargarDetalles() {
+            try {
+                const respuesta = await fetch('datos/inventario.json');
+                const data = await respuesta.json();
+                const productos = data.joyas;
+
+                // Buscar el producto que coincida con el ID
+                const producto = productos.find(item => item.id === idBuscado);
+
+                if (producto) {
+                    // Rellenar la página con los datos reales
+                    document.getElementById('tituloProducto').innerText = producto.titulo;
+                    document.getElementById('precioProducto').innerText = producto.precio;
+                    document.getElementById('descProducto').innerText = producto.descripcion;
+                    document.getElementById('imgPrincipal').src = producto.imagen;
+                    
+                    // Configurar botón de WhatsApp con mensaje personalizado
+                    const mensaje = `Hola, me interesa el ${producto.titulo} de precio ${producto.precio}.`;
+                    const numero = "5215500000000"; // ¡PON TU NÚMERO AQUÍ!
+                    document.getElementById('btnWhatsapp').href = `https://wa.me/${numero}?text=${encodeURIComponent(mensaje)}`;
+                } else {
+                    document.getElementById('tituloProducto').innerText = "Producto no encontrado";
+                    document.getElementById('descProducto').innerText = "Este artículo no parece estar disponible en el inventario.";
+                }
+
+            } catch (error) {
+                console.error('Error:', error);
+            }
+        }
+
+        cargarDetalles();
+    </script>
+</body>
+</html>

@@ -1,0 +1,24 @@
+backend:
+  name: git-gateway
+  branch: main
+
+media_folder: "galeria"
+public_folder: "galeria"
+
+collections:
+  - name: "productos"
+    label: "Productos"
+    files:
+      - file: "datos/inventario.json"
+        name: "inventario"
+        label: "Inventario de Joyas"
+        fields:
+          - label: "Lista de Productos"
+            name: "joyas"
+            widget: "list"
+            fields:
+              - {label: "ID (Numero Unico)", name: "id", widget: "string"}
+              - {label: "Nombre del Producto", name: "titulo", widget: "string"}
+              - {label: "Precio", name: "precio", widget: "string"}
+              - {label: "Descripción", name: "descripcion", widget: "text"}
+              - {label: "Imagen", name: "imagen", widget: "image"}
