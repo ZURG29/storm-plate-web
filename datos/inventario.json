@@ -20,6 +20,13 @@
       "precio": "120",
       "descripcion": "Hermosas Arracadas\n Para Dama Plata de ley .925 ",
       "imagen": "galeria/arracada-delgada-mujer.jpg"
+    },
+    {
+      "id": "004",
+      "titulo": "Pulsera Tipo Adiamantada Plata ley .925",
+      "precio": "350",
+      "descripcion": "Hermosa Pulsera Tipo Adiamantada 20cm Plata Ley .925",
+      "imagen": "galeria/pulsera-adiamantada-20-cm.jpg"
     }
   ]
 }
