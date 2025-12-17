@@ -48,6 +48,13 @@
       "precio": "400",
       "descripcion": "Hermoso Anillo de Plata, talla 8",
       "imagen": "galeria/imagen-de-whatsapp-2025-12-17-a-las-15.01.47_7ecfe07d.jpg"
+    },
+    {
+      "id": "008",
+      "titulo": "Arracada Plata",
+      "precio": "150",
+      "descripcion": "Hermosa Arracada Plata de ley .925 Ideal Para Dama",
+      "imagen": "galeria/imagen-de-whatsapp-2025-12-17-a-las-15.06.36_f0ea8f95.jpg"
     }
   ]
 }
